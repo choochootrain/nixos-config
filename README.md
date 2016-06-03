@@ -8,3 +8,15 @@ git clone git@github.com:NixOS/nixpkgs.git /etx/nixos/nixpkgs
 git clone git@github.com:choochootrain/nixos-config.git /etc/nixos/config
 export NIX_PATH=/etc/nixos:nixos-config=/etc/nixos/config
 ```
+
+Then create a `default.nix` and import the modules you want. For example:
+```
+{ config, pkgs, ... }:
+
+{
+    imports = [
+        ./machines/thinkpad.nix
+        ./common.nix
+    ]
+}
+```
