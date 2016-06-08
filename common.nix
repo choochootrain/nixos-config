@@ -55,6 +55,8 @@ in
     zsh
   ];
 
+  environment.variables."SSL_CERT_FILE" = "/etc/ssl/certs/ca-bundle.crt";
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleUseXkbConfig = true;
