@@ -17,6 +17,6 @@ Then create a `default.nix` and import the modules you want. For example:
     imports = [
         ./machines/thinkpad.nix
         ./common.nix
-    ]
+    ];
 }
 ```
