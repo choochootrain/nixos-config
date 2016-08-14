@@ -34,6 +34,7 @@ in
     i3blocks
     imagemagick
     keybase
+    lemonbar
     nettools
     ngrok
     nix-prefetch-git
@@ -46,12 +47,14 @@ in
     silver-searcher
     spotify
     sysstat
+    termite
     vim
     wget
     which
     xclip
     xfce.terminal
     xorg.xbacklight
+    xorg.xev
     zsh
   ];
 
@@ -69,6 +72,7 @@ in
     fonts = with pkgs; [
       corefonts
       inconsolata
+      powerline-fonts
     ];
   };
 
@@ -89,6 +93,10 @@ in
       enablePepperPDF = true;
     };
   };
+
+  security.sudo.extraConfig = ''
+    Defaults !lecture,tty_tickets,!fqdn,insults
+  '';
 
   system.copySystemConfiguration = true;
   system.stateVersion = "16.03";
