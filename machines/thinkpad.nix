@@ -17,24 +17,6 @@ let
     docker rmi $(docker images -f dangling=true -q);
     docker rmi $(get_psy3_docker_images);
   '';
-
-  psy = pkgs.writeScriptBin "psy" ''
-    #! /usr/bin/env nix-shell
-    #! nix-shell -i bash --pure -p python -p python27Packages.virtualenv -p  python27Packages.boto-230 -p  python27Packages.sqlalchemy -p  python27Packages.datadiff -p  python27Packages.requests -p  python27Packages.MySQL_python -p  python27Packages.argparse -p  python27Packages.scipy -p  python27Packages.termcolor -p  python27Packages.numpy -p  python27Packages.lxml -p  python27Packages.readline -p  python27Packages.pycurl -p  python27Packages.Fabric -p  python27Packages.paramiko -p  python27Packages.pycrypto -p  python27Packages.ecdsa -p  python27Packages.simplejson -p git -p arcanist
-
-    export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
-    export PATH_TO_MEMSQL=$HOME/memsql
-    export PYTHONPATH=$PATH_TO_MEMSQL/py:$PYTHONPATH
-    if [[ ! -e $HOME/memsql/venv ]]
-    then
-      virtualenv $HOME/memsql/venv
-      source $HOME/memsql/venv/bin/activate
-      pip install phabricator
-    else
-      source $HOME/memsql/venv/bin/activate
-    fi
-    $HOME/psyduck/bin/psy "$@"
-  '';
 in
 {
   imports =
@@ -43,6 +25,7 @@ in
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = [ ];
 
   boot.loader.systemd-boot.enable = true;
@@ -62,6 +45,21 @@ in
   networking.wireless.enable = true;
 
   hardware.bluetooth.enable = false;
+
+  fonts = {
+    enableFontDir = true;
+    enableGhostscriptFonts = true;
+    fonts = with pkgs; [
+      corefonts
+      inconsolata
+      powerline-fonts
+      source-code-pro
+    ];
+
+    fontconfig = {
+        enable = true;
+    };
+  };
 
   services = {
     acpid.enable = true;
@@ -92,6 +90,8 @@ in
       longitude = "122.4194";
       extraOptions = [ "-m randr" "-v" ];
     };
+
+    xbanish.enable = true;
   };
 
   users.extraUsers.memsql = {
@@ -127,8 +127,6 @@ in
 
   environment.systemPackages = with pkgs; [
     arcanist
-    psy
     rmdocker
-    slack
   ];
 }
