@@ -17,7 +17,7 @@ let
     echo $PWD/$arg
   '';
 in
-{
+rec {
   environment.systemPackages = with pkgs; [
     acpi
     awscli
@@ -28,13 +28,17 @@ in
     dragon-drop
     dstat
     findup
+    fpp
     git
     gnumake
     gnupg
+    htop
     i3blocks
+    i3lock
     imagemagick
     keybase
-    lemonbar
+    lemonbar-xft
+    mysql
     nettools
     ngrok
     nix-prefetch-git
@@ -47,7 +51,7 @@ in
     silver-searcher
     spotify
     sysstat
-    termite
+    unzip
     vim
     wget
     which
@@ -73,7 +77,12 @@ in
       corefonts
       inconsolata
       powerline-fonts
+      source-code-pro
     ];
+
+    fontconfig = {
+        enable = true;
+    };
   };
 
   nix = {
