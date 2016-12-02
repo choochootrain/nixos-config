@@ -44,7 +44,7 @@ in
   networking.hostId = "512b64e0";
   networking.wireless.enable = true;
 
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth.enable = true;
 
   fonts = {
     enableFontDir = true;
