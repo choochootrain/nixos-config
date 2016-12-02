@@ -84,6 +84,11 @@ in
       };
     };
 
+    printing = {
+        enable = true;
+        drivers = [ pkgs.gutenprint ];
+    };
+
     redshift = {
       enable = true;
       latitude = "37.7749";
