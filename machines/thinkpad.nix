@@ -133,5 +133,6 @@ in
   environment.systemPackages = with pkgs; [
     arcanist
     rmdocker
+    idea.idea-community
   ];
 }
