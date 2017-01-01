@@ -9,6 +9,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "wl" ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 10;
@@ -37,13 +38,16 @@
   networking.hostId = "fd4a42a0";
   networking.wireless.enable = true;
 
-  hardware.bluetooth.enable = false;
+  hardware.bluetooth.enable = true;
 
   services = {
     acpid.enable = true;
 
     xserver = {
       enable = true;
+      deviceSection = ''
+        Option "DRI" "False"
+      '';
       resolutions = [
         {
           x = 2048;
@@ -88,6 +92,8 @@
   users.extraUsers.hp = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "wheel" "audio" ];
+    extraGroups = [ "wheel" "audio" "docker" ];
   };
+
+  virtualisation.docker.enable = true;
 }
