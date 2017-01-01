@@ -64,6 +64,82 @@ rec {
 
   environment.variables."SSL_CERT_FILE" = "/etc/ssl/certs/ca-bundle.crt";
 
+  environment.etc = {
+    editrc.text = ''
+      bind -v
+      bind "^R" em-inc-search-prev
+      bind \\t rl_complete
+    '';
+
+    inputrc.text = ''
+      # inputrc borrowed from CentOS (RHEL).
+
+      set bell-style none
+
+      set meta-flag on
+      set input-meta on
+      set convert-meta off
+      set output-meta on
+      set colored-stats on
+
+      #set mark-symlinked-directories on
+
+      $if mode=emacs
+
+      # for linux console and RH/Debian xterm
+      "\e[1~": beginning-of-line
+      "\e[4~": end-of-line
+      "\e[5~": beginning-of-history
+      "\e[6~": end-of-history
+      "\e[3~": delete-char
+      "\e[2~": quoted-insert
+      "\e[5C": forward-word
+      "\e[5D": backward-word
+      "\e[1;5C": forward-word
+      "\e[1;5D": backward-word
+
+      # for rxvt
+      "\e[8~": end-of-line
+
+      # for non RH/Debian xterm, can't hurt for RH/DEbian xterm
+      "\eOH": beginning-of-line
+      "\eOF": end-of-line
+
+      # for freebsd console
+      "\e[H": beginning-of-line
+      "\e[F": end-of-line
+      $endif
+
+      set editing-mode vi
+
+      $if mode=vi
+
+      set keymap vi-command
+      Control-l: clear-screen
+
+      set keymap vi-insert
+      Control-l: clear-screen
+      $endif
+    '';
+
+    pyrc.text = ''
+      import rlcompleter
+      import readline
+      readline.parse_and_bind("tab: complete")
+    '';
+
+    "user-dirs.defaults".text = ''
+      XDG_DESKTOP_DIR="$HOME"
+      XDG_DOCUMENTS_DIR="$HOME"
+      XDG_DOWNLOAD_DIR="$HOME/dl"
+      XDG_MUSIC_DIR="$HOME"
+      XDG_PICTURES_DIR="$HOME"
+      XDG_PUBLICSHARE_DIR="$HOME/public"
+      XDG_TEMPLATES_DIR="$HOME"
+      XDG_VIDEOS_DIR="$HOME"
+    '';
+  };
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleUseXkbConfig = true;
