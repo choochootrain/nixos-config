@@ -33,7 +33,7 @@ rec {
     gnumake
     gnupg
     htop
-    i3blocks
+    i3blocks-gaps
     i3lock
     imagemagick
     keybase
