@@ -78,9 +78,17 @@ in
         };
       };
 
+      desktopManager = {
+        xterm.enable = false;
+        default = "none";
+      };
+
       windowManager = {
         default = "i3";
-        i3.enable = true;
+        i3 = {
+          enable = true;
+          package = pkgs.i3-gaps;
+        };
       };
     };
 
