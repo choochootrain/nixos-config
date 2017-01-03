@@ -16,6 +16,10 @@ let
 
     echo $PWD/$arg
   '';
+
+  neovim = pkgs.neovim.override {
+    vimAlias = true;
+  };
 in
 rec {
   environment.systemPackages = with pkgs; [
@@ -52,7 +56,7 @@ rec {
     spotify
     sysstat
     unzip
-    vim
+    neovim
     wget
     which
     xclip
