@@ -39,6 +39,7 @@ rec {
     htop
     i3blocks-gaps
     i3lock
+    inotify-tools
     imagemagick
     keybase
     lemonbar-xft
