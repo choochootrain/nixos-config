@@ -31,6 +31,7 @@ rec {
     direnv
     dragon-drop
     dstat
+    file
     findup
     fpp
     git
