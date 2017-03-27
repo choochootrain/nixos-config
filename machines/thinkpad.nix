@@ -1,6 +1,40 @@
 { config, lib, pkgs, ... }:
 
 let
+  psy = pkgs.writeScriptBin "psy" ''
+    #!/usr/bin/env bash
+    export DIR="$PWD"
+    cd $HOME/psyduck/
+    COMMAND="cd $DIR && psy"
+    for var in "$@"; do
+        COMMAND="$COMMAND \"$var\""
+    done
+
+    exec nix-shell --command "$COMMAND"
+  '';
+
+  vpn = pkgs.writeScriptBin "vpn" ''
+    #!/usr/bin/env bash
+
+    VPN_DIR="$HOME/.vpn"
+    CONFIG="$VPN_DIR/$1.conf"
+
+    if [[ -z "$1" ]]; then
+        pgrep openvpn
+    elif [[ "$1" == "exit" ]]; then
+        sudo pkill openvpn
+    elif [[ -f "$CONFIG" ]]; then
+        sudo pkill openvpn
+        echo "starting vpn"
+        sudo --background openvpn "$CONFIG" >"$VPN_DIR/log" 2>&1
+        tail -f "$VPN_DIR/log" | sed '/Initialization Sequence Completed/ q'
+        route
+    else
+        echo "no config named $1 found in $VPN_DIR"
+        exit 1
+    fi
+  '';
+
   rmdocker = pkgs.writeScriptBin "rmdocker" ''
     #! ${pkgs.bash}/bin/bash
     get_psy3_docker_images() {
@@ -140,7 +174,10 @@ in
 
   environment.systemPackages = with pkgs; [
     arcanist
-    rmdocker
     idea.idea-community
+    openvpn
+    psy
+    rmdocker
+    vpn
   ];
 }
