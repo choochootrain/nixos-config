@@ -17,6 +17,16 @@ let
     echo $PWD/$arg
   '';
 
+  nd = pkgs.writeScriptBin "nd" ''
+    #! ${pkgs.bash}/bin/bash
+
+    if [ $? -eq 0 ]; then
+        notify-send $@
+    else
+        notify-send "($?) "$@
+    fi
+  '';
+
   neovim = pkgs.neovim.override {
     vimAlias = true;
   };
@@ -31,6 +41,7 @@ rec {
     direnv
     dragon-drop
     dstat
+    dunst
     file
     findup
     fpp
@@ -42,7 +53,9 @@ rec {
     i3lock
     inotify-tools
     imagemagick
+    jq
     keybase
+    libnotify
     lemonbar-xft
     mysql
     nettools
@@ -58,6 +71,7 @@ rec {
     spotify
     sysstat
     unzip
+    nd
     neovim
     wget
     which
