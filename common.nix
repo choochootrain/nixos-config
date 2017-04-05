@@ -64,6 +64,7 @@ rec {
     nix-repl
     nox
     pass
+    patchelf
     pciutils
     rofi
     rofi-pass
