@@ -51,6 +51,11 @@ let
     docker rmi $(docker images -f dangling=true -q);
     docker rmi $(get_psy3_docker_images);
   '';
+
+  cloud-shell = pkgs.writeScriptBin "cloud-shell" ''
+    #! ${pkgs.bash}/bin/bash
+    xfce4-terminal --command="/bin/sh -c 'cd $HOME/cloud && nix-shell'"
+  '';
 in
 {
   imports =
@@ -174,6 +179,7 @@ in
 
   environment.systemPackages = with pkgs; [
     arcanist
+    cloud-shell
     idea.idea-community
     openvpn
     psy
