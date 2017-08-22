@@ -71,6 +71,7 @@ rec {
     silver-searcher
     spotify
     sysstat
+    tree
     unzip
     nd
     neovim
