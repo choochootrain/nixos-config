@@ -54,7 +54,14 @@ let
 
   cloud-shell = pkgs.writeScriptBin "cloud-shell" ''
     #! ${pkgs.bash}/bin/bash
-    xfce4-terminal --command="/bin/sh -c 'cd $HOME/cloud && nix-shell'"
+    CLOUD_DIR=$HOME/cloud
+    DRV=$CLOUD_DIR/shell.drv
+
+    if [ ! -e "$DRV" ]; then
+        $(cd $CLOUD_DIR; nix-instantiate . --indirect --add-root $DRV)
+    fi
+
+    xfce4-terminal --command="/bin/sh -c 'cd $CLOUD_DIR && nix-shell $DRV'"
   '';
 in
 {
