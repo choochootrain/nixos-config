@@ -57,6 +57,7 @@ rec {
     keybase
     libnotify
     lemonbar-xft
+    lsof
     mysql
     nettools
     ngrok
