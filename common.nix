@@ -59,6 +59,8 @@ rec {
     lemonbar-xft
     lsof
     mysql
+    nd
+    neovim
     nettools
     ngrok
     nix-prefetch-git
@@ -70,12 +72,10 @@ rec {
     rofi
     rofi-pass
     silver-searcher
-    spotify
     sysstat
     tree
     unzip
-    nd
-    neovim
+    usbutils
     wget
     which
     xclip
