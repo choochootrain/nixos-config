@@ -100,6 +100,8 @@
     xbanish = {
       enable = true;
     };
+
+    udev.packages = [ pkgs.android-udev-rules ];
   };
 
   users.extraUsers.hp = {
