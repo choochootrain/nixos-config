@@ -139,8 +139,8 @@ in
     };
 
     printing = {
-        enable = true;
-        drivers = [ pkgs.gutenprint ];
+      enable = true;
+      drivers = [ pkgs.gutenprint ];
     };
 
     redshift = {
