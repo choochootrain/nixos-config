@@ -92,21 +92,6 @@ in
 
   hardware.bluetooth.enable = true;
 
-  fonts = {
-    enableFontDir = true;
-    enableGhostscriptFonts = true;
-    fonts = with pkgs; [
-      corefonts
-      inconsolata
-      powerline-fonts
-      source-code-pro
-    ];
-
-    fontconfig = {
-        enable = true;
-    };
-  };
-
   services = {
     acpid.enable = true;
 
