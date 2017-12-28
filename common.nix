@@ -66,6 +66,7 @@ rec {
     nix-prefetch-git
     nix-repl
     nox
+    ntfs3g
     pass
     patchelf
     pciutils
