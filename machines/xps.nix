@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  ledger-udev-rules = import ../lib/ledger-udev-rules { inherit pkgs; };
+in
 {
   imports =
     [ <nixpkgs/nixos/modules/hardware/network/broadcom-43xx.nix>
@@ -101,7 +104,7 @@
       enable = true;
     };
 
-    udev.packages = [ pkgs.android-udev-rules ];
+    udev.packages = [ pkgs.android-udev-rules ledger-udev-rules ];
   };
 
   users.extraUsers.hp = {
