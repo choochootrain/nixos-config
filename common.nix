@@ -64,7 +64,6 @@ rec {
     nettools
     ngrok
     nix-prefetch-git
-    nix-repl
     nox
     ntfs3g
     pass
@@ -208,7 +207,7 @@ rec {
   '';
 
   system.copySystemConfiguration = true;
-  system.stateVersion = "16.03";
+  system.stateVersion = "19.03";
 
   time.timeZone = "America/Los_Angeles";
 
