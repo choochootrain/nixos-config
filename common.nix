@@ -209,9 +209,12 @@ rec {
     };
   };
 
-  security.sudo.extraConfig = ''
-    Defaults !lecture,tty_tickets,!fqdn,insults
-  '';
+  security = {
+    audit.enable = false;
+    sudo.extraConfig = ''
+      Defaults !lecture,tty_tickets,!fqdn,insults
+    '';
+  };
 
   system.copySystemConfiguration = true;
   system.stateVersion = "19.03";

@@ -9,14 +9,18 @@ in
       <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.kernelModules = [ "wl" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    initrd.kernelModules = [ "wl" ];
+    kernelModules = [ "kvm-intel" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+    # remove syscall overhead for "high performance computing"
+    kernelParams = [ "audit=0" ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 10;
-  boot.loader.efi.canTouchEfiVariables = true;
+    loader.systemd-boot.enable = true;
+    loader.timeout = 10;
+    loader.efi.canTouchEfiVariables = true;
+  };
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/f82cd8ac-11e4-4a37-ac62-254529c20369";
