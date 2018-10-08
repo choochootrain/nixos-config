@@ -68,6 +68,7 @@ rec {
     ntfs3g
     pass
     patchelf
+    pavucontrol
     pciutils
     rofi
     rofi-pass
@@ -183,6 +184,8 @@ rec {
         enable = true;
     };
   };
+
+  hardware.pulseaudio.enable = true;
 
   nix = {
     buildCores = 0;
