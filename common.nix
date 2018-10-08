@@ -186,7 +186,10 @@ rec {
     };
   };
 
-  hardware.pulseaudio.enable = true;
+  hardware = {
+    cpu.intel.updateMicrocode = true;
+    pulseaudio.enable = true;
+  };
 
   nix = {
     buildCores = 0;
