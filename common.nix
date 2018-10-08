@@ -188,7 +188,11 @@ rec {
 
   hardware = {
     cpu.intel.updateMicrocode = true;
-    pulseaudio.enable = true;
+    pulseaudio = {
+      enable = true;
+      support32Bit = true;
+      package = pkgs.pulseaudioFull;
+    };
   };
 
   nix = {
