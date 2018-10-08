@@ -44,6 +44,7 @@ rec {
     dunst
     file
     findup
+    firefox-bin
     fpp
     git
     gnumake
