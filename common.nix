@@ -60,6 +60,7 @@ rec {
     lemonbar-xft
     lsof
     mysql
+    ncdu
     nd
     neovim
     nettools
@@ -74,6 +75,7 @@ rec {
     rofi
     rofi-pass
     silver-searcher
+    spotify
     sysstat
     tree
     unzip
